@@ -2,8 +2,8 @@
 class alu_agent extends uvm_agent;
   	alu_driver    driver;
   	alu_sequencer sequencer;
-  	alu_monitor   monitor;
-
+  	alu_active_monitor   active_monitor;
+	alu_passive_monitor passive_monitor;
   `uvm_component_utils(alu_agent)
 
   function new (string name = "alu_agent", uvm_component parent);
@@ -15,8 +15,10 @@ class alu_agent extends uvm_agent;
       if(get_is_active() == UVM_ACTIVE)begin
       	driver = alu_driver::type_id::create("driver", this);
       	sequencer = alu_sequencer::type_id::create("sequencer", this);
+        active_monitor = alu_active_monitor::type_id::create("active_monitor", this);
       end
-      monitor = alu_monitor::type_id::create("monitor", this);
+      else 
+        passive_monitor = alu_passive_monitor::type_id::create("passive_monitor", this);
   	endfunction:build_phase
 
   	function void connect_phase(uvm_phase phase);

@@ -1,6 +1,6 @@
 
 
-`define MAX ((1<<`WIDTH)-1) 
+`define MAX ((1<<`WIDTH)-1)  // For example, if width is defined
 
 `define WIDTH 8
 `define CMD_WIDTH 4
@@ -40,4 +40,4 @@
 `define CLK_PERIOD 20
 
 `define ROR_WIDTH $clog2(`WIDTH) 
-    
+`define TRANSACTIONS 10

@@ -7,7 +7,7 @@ class alu_sequence extends uvm_sequence#(alu_sequence_item);
 
 
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
             req = alu_sequence_item::type_id::create("req");
             wait_for_grant();
         req.randomize()with{req.MODE ==1;req.CE == 1; req.CMD inside{[0:1]};req.INP_VALID == 3;};
@@ -26,7 +26,7 @@ class alu_single_operand_operation extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.CE == 1;req.INP_VALID dist{3:=5,2:=2,1:=2}; 
                           req.CMD inside{`INC_A,`INC_B,`SHR1_A,`SHR1_B,`SHL1_A,`SHR1_B,`NOT_A,`NOT_B};})
         end:repeat_loop
@@ -42,7 +42,7 @@ class alu_multiple_operand_arithmetic extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20) begin:repeat_loop
+      repeat(`TRANSACTIONS) begin:repeat_loop
         `uvm_do_with(req,{req.INP_VALID==3;req.MODE == 1;req.CMD inside{[0:8]};})
     	end:repeat_loop
   	endtask:body
@@ -58,7 +58,7 @@ class alu_multiple_operand_logical extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20) begin:repeat_loop
+      repeat(`TRANSACTIONS) begin:repeat_loop
         `uvm_do_with(req,{req.INP_VALID==3;req.MODE == 0;req.CMD inside{[0:13]};})
     	end:repeat_loop
   	endtask:body
@@ -74,7 +74,7 @@ class alu_invalid_logical extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.INP_VALID==3;req.MODE == 0;req.CE == 1;req.CMD inside{[14:15]};})
         end:repeat_loop
   	endtask:body
@@ -91,7 +91,7 @@ class alu_invalid_arithmetic extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.INP_VALID==3;req.MODE == 1;req.CE == 1;req.CMD inside{[11:15]};})
         end:repeat_loop
   	endtask:body
@@ -107,7 +107,7 @@ class alu_compare extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.INP_VALID==3;req.MODE == 1;req.CE == 1;req.CMD ==8;})
         end:repeat_loop
   	endtask:body
@@ -123,7 +123,7 @@ class alu_16_cycle_normal_logical extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.MODE == 0;req.CE == 1;req.CMD inside{[0:13]};})
         end:repeat_loop
   	endtask:body
@@ -138,7 +138,7 @@ class alu_16_cycle_normal_arithmetic extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.MODE ==1 ;req.CE == 1;req.CMD inside{[0:8]};})
         end:repeat_loop
   	endtask:body
@@ -153,7 +153,7 @@ class alu_inactive_CE extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
         `uvm_do_with(req,{req.CE == 0;})
         end:repeat_loop
   	endtask:body
@@ -184,7 +184,7 @@ class alu_multiplication extends uvm_sequence#(alu_sequence_item);
   	endfunction:new
   
   	virtual task body();
-      repeat(20)begin:repeat_loop
+      repeat(`TRANSACTIONS)begin:repeat_loop
     		`uvm_do_with(req,{req.INP_VALID==3;req.MODE == 1;req.CE == 1;req.CMD inside{`MUL_INC,`MUL_SHIFT};})
         end:repeat_loop
   	endtask:body

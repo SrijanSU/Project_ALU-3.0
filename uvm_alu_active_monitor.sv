@@ -1,6 +1,6 @@
 
 
-class alu_monitor extends uvm_monitor;
+class alu_active_monitor extends uvm_monitor;
 
  	 virtual alu_interface vif;
 
@@ -8,9 +8,9 @@ class alu_monitor extends uvm_monitor;
 
   	alu_sequence_item alu_sequence_item_1;
 
-  `uvm_component_utils(alu_monitor)
+  `uvm_component_utils(alu_active_monitor)
 
-  function new (string name = "alu_monitor", uvm_component parent);
+  function new (string name = "alu_active_monitor", uvm_component parent);
     	super.new(name, parent);
     	alu_sequence_item_1 = new();
     item_collected_port = new("item_collected_port", this);
@@ -32,14 +32,8 @@ class alu_monitor extends uvm_monitor;
           	alu_sequence_item_1.CIN = vif.CIN;
           	alu_sequence_item_1.CMD = vif.CMD;
           	alu_sequence_item_1.MODE = vif.MODE;
-          	alu_sequence_item_1.RES = vif.RES;
-          	alu_sequence_item_1.ERR = vif.ERR;
-          	alu_sequence_item_1.COUT = vif.COUT;
-          	alu_sequence_item_1.OFLOW = vif.OFLOW;
-          	alu_sequence_item_1.G = vif.G;
-          	alu_sequence_item_1.E = vif.E;
-          	alu_sequence_item_1.L = vif.L;
+          
     		item_collected_port.write(alu_sequence_item_1);
     	end:forever_loop
   	endtask:run_phase
-endclass:alu_monitor
+endclass:alu_active_monitor

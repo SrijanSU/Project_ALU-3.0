@@ -22,8 +22,6 @@ module top;
   
   	initial begin:config_db 
     	uvm_config_db#(virtual alu_interface)::set(uvm_root::get(),"*","vif",intrf);
-    	$dumpfile("dump.vcd");
-		$dumpvars;
   	end:config_db
   
   	initial begin:run

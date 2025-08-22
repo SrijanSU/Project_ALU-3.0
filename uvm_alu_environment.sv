@@ -12,7 +12,8 @@ class alu_environment extends uvm_env;
 
   	function void build_phase(uvm_phase phase);
     	super.build_phase(phase);
-// 	    uvm_config_db#(uvm_active_passive_enum)::set(this,"active_agent","is_active",UVM_ACTIVE);        		 uvm_config_db#(uvm_active_passive_enum)::set(this,"passive_agent","is_active",UVM_PASSIVE);
+
+
         active_agent = alu_agent::type_id::create("active_agent", this);
       	passive_agent = alu_agent::type_id::create("passive_agent", this);
       	scoreboard = alu_scoreboard::type_id::create("scoreboard", this);
@@ -20,9 +21,9 @@ class alu_environment extends uvm_env;
   	endfunction:build_phase
   
     function void connect_phase(uvm_phase phase);    								   
-      active_agent.monitor.item_collected_port.connect(scoreboard.item_collected_export_active);
-      passive_agent.monitor.item_collected_port.connect(scoreboard.item_collected_export_passive);    
-      active_agent.monitor.item_collected_port.connect(coverage.act_mon);
-      passive_agent.monitor.item_collected_port.connect(coverage.pass_mon);
+      active_agent.active_monitor.item_collected_port.connect(scoreboard.item_collected_export_active);
+      passive_agent.passive_monitor.item_collected_port.connect(scoreboard.item_collected_export_passive);    
+      active_agent.active_monitor.item_collected_port.connect(coverage.act_mon);
+      passive_agent.passive_monitor.item_collected_port.connect(coverage.pass_mon);
   	endfunction:connect_phase
 endclass:alu_environment
